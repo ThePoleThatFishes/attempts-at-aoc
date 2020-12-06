@@ -1,27 +1,26 @@
+import re
+
+
 with open("day5.1_data.txt", "r") as f:
     seatIDs = []
-    maxID = 855
+    maxID = 0
     for bp in f:
-        minrow = 0
-        maxrow = 127
-        mincol = 0
-        maxcol = 7
-        for char in bp:
-            distrow = maxrow - minrow + 1
-            distcol = maxcol - mincol + 1
-            if char == "F":
-                maxrow -= distrow//2
-            elif char == "B":
-                minrow += distrow//2
-            elif char == "L":
-                mincol += distcol//2
-            elif char == "R":
-                maxcol -= distcol//2
-
-        seatID = minrow*8 + mincol
+        bp = re.sub("[FL]", "0", bp)
+        bp = re.sub("[BR]", "1", bp)
+        row = 0
+        col = 0
+        for i in range(7):
+            row += int(bp[i])*pow(2, 6-i)
+        for i in range(7, 10):
+            col += int(bp[i])*pow(2, 9-i)
+        seatID = row*8 + col
         seatIDs.append(seatID)
-    seatIDs.sort()
-for i in range(maxID + 1):
-    if (i - 1 in seatIDs) and (i + 1 in seatIDs):
+        maxID = max(maxID, seatID)
+    print(maxID)
+
+    for i in range(maxID + 1):
         if i not in seatIDs:
-            print(i)
+            print("Missing seat: {}".format(i))
+
+
+
