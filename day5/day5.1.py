@@ -13,9 +13,9 @@ with open("day5.1_data.txt", "r") as f:
                 maxrow -= distrow//2
             elif char == "B":
                 minrow += distrow//2
-            elif char == "L":
-                mincol += distcol//2
             elif char == "R":
+                mincol += distcol//2
+            elif char == "L":
                 maxcol -= distcol//2
 
         seatID = minrow*8 + mincol
