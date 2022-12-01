@@ -1,13 +1,11 @@
-numlist = []
-counter = 0
-
 with open("day1_input.txt", "r") as f:
-    for num in f:
-        numlist.append(int(num))
-        if len(numlist) > 3:
-            if sum(numlist[-2:-5:-1]) < sum(numlist[-1:-4:-1]):
-                counter += 1
-
-    print(counter)
-    f.close()
+    elven_inventories = []
+    calories = 0
+    for line in f:
+        if line.strip() == "":
+            elven_inventories.append(calories)
+            calories = 0
+        else:
+            calories += int(line.strip())
+    print(sum(sorted(elven_inventories, reverse=True)[:3]))
 

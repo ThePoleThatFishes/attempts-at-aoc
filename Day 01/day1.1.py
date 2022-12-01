@@ -1,12 +1,10 @@
-numlist = []
-count = 0
-
 with open("day1_input.txt", "r") as f:
-    for num in f:
-        numlist.append(int(num))
-        if len(numlist) > 1:
-            if numlist[-1] > numlist[-2]:
-                count += 1
-      
-    print(count)
-    f.close()
+    elven_inventories = []
+    calories = 0
+    for line in f:
+        if line.strip() == "":
+            elven_inventories.append(calories)
+            calories = 0
+        else:
+            calories += int(line.strip())
+    print(max(elven_inventories))
