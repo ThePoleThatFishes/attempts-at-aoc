@@ -1,6 +1,24 @@
-with open("day2_input.txt", "r") as f:  
-    matches = [line.strip() for line in f]
-    points = matches.count("A X") * 4 + matches.count("A Y") * 8 + matches.count("A Z") * 3 +\
-        matches.count("B X") * 1 + matches.count("B Y") * 5 + matches.count("B Z") * 9 +\
-        matches.count("C X") * 7 + matches.count("C Y") * 2 + matches.count("C Z") * 6
-    print(points)
+with open("day2_input.txt", "r") as f:
+    counter = 0
+    for line in f:
+        game = line.strip("\n").split(": ")
+        game_id = int(game[0].split(" ")[1])
+        rounds = game[1].replace(";", ",").split(", ")
+        cubes = [(int(cube_obj.split(" ")[0]), cube_obj.split(" ")[1]) for cube_obj in rounds]
+        count = True
+        for cube_tuple in cubes:
+            if cube_tuple[0] > 14:
+                count = False
+                break
+            elif cube_tuple[0] > 13:
+                if cube_tuple[1] != "blue":
+                    count = False
+                    break
+            elif cube_tuple[0] > 12:
+                if cube_tuple[1] == "red":
+                    count = False
+                    break
+        if count:
+            counter += game_id
+
+print(counter)

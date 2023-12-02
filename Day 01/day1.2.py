@@ -1,11 +1,19 @@
-with open("day1_input.txt", "r") as f:
-    elven_inventories = []
-    calories = 0
-    for line in f:
-        if line.strip() == "":
-            elven_inventories.append(calories)
-            calories = 0
-        else:
-            calories += int(line.strip())
-    print(sum(sorted(elven_inventories, reverse=True)[:3]))
+import re
 
+with open("day1_input.txt", "r") as f:
+    result = 0
+    for line in f:
+        line.strip("\n")
+        num2int = {"one": "1", "two": "2", "three": "3", "four": "4", "five": "5", "six": "6", "seven": "7",
+                   "eight": "8", "nine": "9"}
+        print(line)
+        for k, v in num2int.items():
+            line = line.replace(k, v)
+        print(line)
+        nums = re.findall("[0-9]+", line)
+        numstring = ""
+        for item in nums:
+            numstring += item
+        print(numstring)
+        result += int(numstring[0] + numstring[-1])
+    print(result)
